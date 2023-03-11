@@ -1,25 +1,52 @@
-import logo from './logo.svg';
-import './App.css';
+import { Route, Routes } from 'react-router-dom';
+import { GetPost } from './components/context/FetchPosts';
+import AllPosts from './pages/AllPosts';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Landing from './pages/Landing';
+import CreatePost from './components/CreatePost';
+import './styles/App.css';
+import SignUp from './pages/SignUp';
+import SignIn from './pages/SignIn';
+
+
+
 
 function App() {
+
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <GetPost>
+      <ToastContainer />
+      <Routes>
+        <Route
+          path='/'
+          element={<Landing />}
+        />
+        <Route
+          path='/login'
+          element={<SignIn />}
+        />
+
+        <Route
+          path='/signup'
+          element={<SignUp />}
+        />
+        {/* Protected routes */}
+        <Route path={'/posts'} element={<AllPosts />}>
+          <Route path='new-post' element={<CreatePost />} />
+        </Route>
+
+      </Routes>
+    </GetPost>
+  )
 }
 
+
+
+
 export default App;
+
+
+
